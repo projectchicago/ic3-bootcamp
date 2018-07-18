@@ -800,5 +800,5 @@ window.addEventListener('load',function(){
 var c = new Chart();
 var t = new Table();
 
-//document.body.appendChild(c.createComponent());
+document.body.appendChild(c.createComponent());
 document.body.appendChild(t.createComponent());
