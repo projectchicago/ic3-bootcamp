@@ -4,6 +4,42 @@ import * as _ from "lodash";
 
 export class Table {
 
+	constructor(){
+		this.futures = [];
+	}
+
+	onCreatedGasFuture(data){
+
+		var future = {
+			blockCreated: data[0].toString(),
+			startHeight: data[1].toString(),
+			executeHeight: data[2].toString(),
+			gasLimit: data[3].toString(),
+			price: data[4].toString(),
+			executionMessage: data[5],
+			executionAddress: data[6],
+		};
+
+		this.insertRow(future);
+		this.futures.push(future);
+	}
+
+	onNewBlock(block){
+
+		this.blockNumberEl.textContent = block.number;
+
+		var total = 0;
+		for(var i = 0; i < this.futures.length; i++){
+			if (this.futures[i].executeHeight > block.number){
+				total++;
+			}else{
+				// TODO: remove row
+			}
+		}
+		this.futuresNumber.textContent = total;
+
+	}
+
 	loadData(data) {
 
 		const columnTitles = ["Block Created", "Start Height", "Execution Height", "Gas Limit", "Price", "Execution Message", "Execution Address"];
@@ -80,18 +116,15 @@ export class Table {
 				executionAddress: "0x.....",
 			}
 		});
-
-		this.loadData(data)
-
-		this.insertRow({
-			blockCreated: 400,
-			startHeight: 400+100,
-			executeHeight: 400+1000,
-			gasLimit: 1000000,
-			price: _.random(1,100),
-			executionMessage: "0x.hiiii....",
-			executionAddress: "0x.....",
-		});
+		this.loadData([{
+			blockCreated: null,
+			startHeight: null,
+			executeHeight: null,
+			gasLimit: null,
+			price: null,
+			executionMessage: null,
+			executionAddress: null,
+		}]);
 
 	}
 
@@ -101,16 +134,16 @@ export class Table {
 
 		var blockNumberHeading = document.createElement('h2');
 		blockNumberHeading.appendChild(document.createTextNode('Block Number: '));
-		var blockNumber = document.createElement('span');
-		blockNumber.id = 'block-number';
-		blockNumberHeading.appendChild(blockNumber);
+		this.blockNumberEl = document.createElement('span');
+		this.blockNumberEl.id = 'block-number';
+		blockNumberHeading.appendChild(this.blockNumberEl);
 		div.appendChild(blockNumberHeading);
 
 		var futureOutstandingHeading = document.createElement('h2');
 		futureOutstandingHeading.appendChild(document.createTextNode('Futures Outstanding: '));
-		var futuresNumber = document.createElement('span');
-		futuresNumber.id = 'futures-number';
-		futureOutstandingHeading.appendChild(futuresNumber);
+		this.futuresNumber = document.createElement('span');
+		this.futuresNumber.id = 'futures-number';
+		futureOutstandingHeading.appendChild(this.futuresNumber);
 		div.appendChild(futureOutstandingHeading);
 
 		var dataList = document.createElement('div');
