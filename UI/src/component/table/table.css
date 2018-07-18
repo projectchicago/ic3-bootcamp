@@ -1,0 +1,24 @@
+@font-face {
+    font-family: 'Roboto Condensed';
+    src: url(../../../fonts/RobotoCondensed-Regular.ttf);
+}
+
+body {
+	font-family: 'Roboto Condensed', sans-serif;
+}
+table {
+	border-collapse: collapse;
+	width: 100%;
+	color: black;
+}
+
+th, td {
+	padding: 8px;
+	text-align: left;
+	border-bottom: 1px solid #ddd;
+}
+
+tr:nth-of-type(n+3)
+{
+	background-color:salmon;
+}
