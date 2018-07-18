@@ -144,10 +144,10 @@ export class Chart {
 			div.appendChild(chart);
 		}
 
-		generateChartDiv('chart1', 'Futures: 1 Day')
-		generateChartDiv('chart2', 'Futures: 1 Week')
-		generateChartDiv('chart3', 'Futures: 1 Month')
-		generateChartDiv('chart4', 'Futures: 1 Year')
+		generateChartDiv('chart1', 'Futures: 1 Day (5760 blocks)')
+		generateChartDiv('chart2', 'Futures: 1 Week (40320 blocks)')
+		generateChartDiv('chart3', 'Futures: 1 Month (175200 blocks)')
+		generateChartDiv('chart4', 'Futures: 1 Year (2102400 blocks)')
 
 		return div;
 
