@@ -37,17 +37,21 @@ contract ProtocolGasFutures {
     ids[expiry].push(id);
     emit CreatedGasFuture(id);
   }
-  
-  function issue(Dex _dex) public {
-    dex = _dex;
 
+  
+  function issue() public {
     uint height = block.number;
     uint gasLimit = 350000;
 
-    issueToken(height+5760, gasLimit);
-    issueToken(height+40320, gasLimit);
-    issueToken(height+175200, gasLimit);
-    issueToken(height+2102400, gasLimit);
+    // Assume average block time is 15 seconds
+    issueToken(height+5760, gasLimit); // 24 hours
+    issueToken(height+40320, gasLimit); // 7 days
+    issueToken(height+175200, gasLimit); // ~ month
+    issueToken(height+2102400, gasLimit); // 365 days
+  }
+
+  function setDex(Dex _dex) public {
+    dex = _dex;
   }
 
   function runAuction(uint _id) public {
